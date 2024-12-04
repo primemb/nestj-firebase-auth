@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { BlogModule } from './blog/blog.module';
-import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { ConfigModule } from '@nestjs/config';
     }),
     DatabaseModule,
     BlogModule,
-    UserModule,
+    AuthModule,
+    FirebaseModule,
   ],
   controllers: [],
   providers: [],

@@ -16,12 +16,15 @@ import { UploadImage } from 'src/shared/decorators/upload-image.decorator';
 import { ICustomUploadFile } from 'src/shared/interfaces/custom-upload-file.interface';
 import { ImageFileValidatorPipe } from 'src/shared/pipe/image-file-validator.pipe';
 import { PaginateDto } from 'src/shared/dto/paginate.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Roles } from 'src/auth/enums/roles.enum';
 
 @Controller()
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
   @Post()
+  @Auth(Roles.Admin)
   @UploadImage('image', 'blog_image')
   create(
     @Body() createBlogDto: CreateBlogDto,
@@ -32,16 +35,19 @@ export class BlogController {
   }
 
   @Get()
+  @Auth(Roles.User)
   findAll(@Query() paginate: PaginateDto) {
     return this.blogService.findAll(paginate);
   }
 
   @Get(':id')
+  @Auth(Roles.User)
   findOne(@Param('id') id: string) {
     return this.blogService.findOne(+id);
   }
 
   @Patch(':id')
+  @Auth(Roles.Admin)
   @UploadImage('image', 'blog_image')
   update(
     @Param('id') id: string,
@@ -58,6 +64,7 @@ export class BlogController {
   }
 
   @Delete(':id')
+  @Auth(Roles.Admin)
   remove(@Param('id') id: string) {
     return this.blogService.remove(+id);
   }
