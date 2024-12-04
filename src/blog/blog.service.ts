@@ -41,7 +41,7 @@ export class BlogService {
     return this.databaseService.blog.findMany();
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     const blog = await this.databaseService.blog.findUnique({
       where: {
         id,
@@ -56,7 +56,7 @@ export class BlogService {
   }
 
   async update(
-    id: string,
+    id: number,
     updateBlogDto: UpdateBlogDto,
     image: ICustomUploadFile,
   ) {
@@ -77,7 +77,7 @@ export class BlogService {
     });
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     const blog = await this.findOne(id);
 
     this.removeOldImage(blog.image);

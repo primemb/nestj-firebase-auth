@@ -38,7 +38,7 @@ export class BlogController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.blogService.findOne(id);
+    return this.blogService.findOne(+id);
   }
 
   @Patch(':id')
@@ -54,11 +54,11 @@ export class BlogController {
     )
     image: ICustomUploadFile,
   ) {
-    return this.blogService.update(id, updateBlogDto, image);
+    return this.blogService.update(+id, updateBlogDto, image);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.blogService.remove(id);
+    return this.blogService.remove(+id);
   }
 }
